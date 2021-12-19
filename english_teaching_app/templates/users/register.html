@@ -1,0 +1,42 @@
+
+
+{% extends "base.html" %}
+
+{% block content %}
+<header><h1>Register</h1></header>
+
+<section class="register-form">
+
+  <form method="post">
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">User email</label>
+      <input type="email" autocapitalize="off" class="form-control" id="email" name="email" placeholder="Enter your email address!">
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+      <label for="pasword">Password</label>
+      <input type="password" class="form-control" id="password" name="password">
+    </div>
+
+
+    <!-- First name -->
+    <div class="form-group">
+      <label for="name">First name</label>
+      <input type="text" autocapitalize="words" class="form-control" id="firstname" name="firstname" placeholder="Enter your first name">
+    </div>
+
+    <!-- Last name(s) -->
+    <div class="form-group">
+      <label for="name">Last name(s)</label>
+      <input type="text" autocapitalize="words" class="form-control" id="lastname" name="lastname" placeholder="Enter your last name(s)">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+
+  </form>
+
+</section>
+{% endblock %}

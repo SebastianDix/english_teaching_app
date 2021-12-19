@@ -1,0 +1,88 @@
+#!/usr/bin/env python3
+import mailbox
+import quopri
+import html5lib
+from bs4 import BeautifulSoup
+from models.lesson import Lesson
+from models.user import User
+import datetime
+from typing import List
+
+def showMbox(mboxPath):
+    box = mailbox.mbox(mboxPath)
+    for msg in box:
+        student = {
+            "_id": "c88c1b5d91024455827b5ac11fc9b926",
+            "email": "jakub.sulta@gmail.com",
+            "firstname": "Jakub",
+            "lastname": "Šulta"
+        }
+        feedback=showPayload(msg)
+        datet=datetime.datetime.strptime(msg['Date'],"%a, %d %b %Y %H:%M:%S %z")
+        lesson = Lesson(student=student,feedback=feedback,datetime=datet,topics="",duration="60",favorite=False)
+        lesson.save_to_mongo()
+
+def safe_list_get(l:List, idx:int, default):
+    try:
+        return l[idx]
+    except IndexError:
+        return default
+
+def showPayload(msg):
+    feedback={
+       "vocab": [],
+       "mistakes": [ ],
+       "pronunciation": [ ],
+       "grammar": [ ],
+       "homework": [ ]
+    }
+    payload = msg.get_payload()
+    if isinstance(payload,str):
+        payload = quopri.decodestring(payload).decode("UTF-8")
+        soup = BeautifulSoup(payload,"html5lib")
+        tables = soup.find_all('table')
+        for table in tables:
+            if table.find('th').text == "Vocabulary":
+                for row in table.find_all('tr'):
+                    cells=row.find_all('td')
+                    if len(cells) == 2:
+                        words=[cells[0].text,cells[1].text]
+                        feedback["vocab"].append(words)
+            if table.find('th').text == "Error Correction":
+                for row in table.find_all('tr'):
+                    cells=row.find_all('td')
+                    if len(cells) == 2:
+                        words=[cells[0].text,cells[1].text]
+                        feedback["mistakes"].append(words)
+            if table.find('th').text == "Pronunciation":
+                for row in table.find_all('tr'):
+                    cells=row.find_all('td')
+                    if len(cells) == 2:
+                        words=[cells[0].text,cells[1].text]
+                        feedback["pronunciation"].append(words)
+            if table.find('th').text == "Grammar":
+                for row in table.find_all('tr'):
+                    cells=row.find_all('td')
+                    if len(cells) == 2:
+                        words=[cells[0].text,cells[1].text]
+                        feedback["grammar"].append(words)
+            if table.find('th').text == "Homework":
+                for row in table.find_all('tr'):
+                    cells=row.find_all('td')
+                    if len(cells) == 2:
+                        words=[cells[0].text,cells[1].text]
+                        feedback["homework"].append(words)
+    else:
+        for msg in payload:
+            showPayload(msg)
+
+    return feedback
+    #table = etree.HTML(payload).find("table")
+    #rows = iter(table)
+    #headers = [col.text for col in next(rows)]
+    #for row in rows:
+        #values = [col.text for col in row]
+        #print(dict(zip(headers,values)))
+
+if __name__ == '__main__':
+    showMbox('./feedback.mbox')

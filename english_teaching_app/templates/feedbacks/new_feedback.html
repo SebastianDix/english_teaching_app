@@ -1,0 +1,46 @@
+
+
+{% extends "base.html" %}
+
+{% block content %}
+<header><h1>Create lesson</h1></header>
+<section class="create-lesson-form">
+  <form method="post" action="/lessons/new">
+    <!-- Student dropdown -->
+    <select class="custom-select mb-3" id="student" name="student">
+      {% for student in students %}
+      {% if students %}
+      <option>{{ student.email }}</option>
+      {% else %}
+      <option selected>No students found!</option>
+      {% endif %}
+
+      {% endfor %}
+    </select>
+
+    <!-- Year -->
+    <div class="form-row">
+      <div class="col">
+        <label for="year">Date</label>
+        <input type="text" class="form-control" id="date" name="date" placeholder="{{ year }}-{{ month }}-{{ day }}" value="{{ year }}-{{ month }}-{{ day }}" required pattern="\d{4}-\d{2}-\d{2}" >
+        <span class="validity"></span>
+      </div>
+
+    <!-- Time -->
+    <div class="col">
+      <label for="text">Time</label>
+      <input type="time" class="form-control" id="time" name="time" placeholder="{{ time }}" value="{{ time }}">
+    </div>
+    </div>
+
+    <!-- Topics -->
+    <div class="form-group">
+      <label for="topics">Topics</label>
+      <input type="text" class="form-control" id="topics" name="topics" placeholder="Cars + Present perfect">
+    </div>
+
+    <button class="btn btn-primary" type="submit">Create</button>
+  </form>
+
+</section>
+{% endblock %}

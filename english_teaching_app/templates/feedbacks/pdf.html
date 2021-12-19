@@ -1,0 +1,177 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Seb's English App</title>
+		<style>
+/*.container {
+	display:flex;
+	flex-wrap:wrap;
+	align-items:stretch;
+	align-content:stretch;
+}
+.item {
+	flex:0 50%;
+	height:30px;
+	border: 1px solid gray;
+
+}*/
+table, tr, td, th, tbody, thead, tfoot {
+	page-break-inside: avoid !important;
+}
+table {
+	margin-bottom:15px;
+	width:100%;
+	border-collapse:collapse;
+}
+th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+th, td {
+	padding: 10px;
+	text-align: center;    
+	font-size:24px;
+}
+td{
+	width:50%;
+	color:black;
+	font-size:24px;
+	font-family:Roboto;
+}
+td.url{
+	max-width:500px;
+	/*word-break: break-all;*/
+}
+tr:nth-child(even){
+	background-color:#f1f1f1;
+}
+.vocabheader{background-color:#cc0000;color:white}
+.mistakesheader{background-color:#2ca05a;color:white}
+.pronunciationheader{background-color:#a64d79;color:white}
+.grammarheader{background-color:#3c78d8;color:white}
+.homeworkheader{background-color:#e69138;color:white}
+
+.vocab{background-color:#ea8888;color:black}
+.mistakes{background-color:#3ec48a;color:black}
+.pronunciation{background-color:#d5a6bd;color:black}
+.grammar{background-color:#a4c2f4;color:black}
+.homework{background-color:#fce5cd;color:black}
+
+		</style>
+
+	</head>
+	<body>
+		<h1> Analysis {{ title }} </h1>
+		{% if items|length > 0 %}
+		<div class="container">
+			{% if items.vocab %}
+			<table>
+				<thead>
+					<tr>
+						<th class="vocabheader" colspan=2>Vocabulary</th>
+					</tr>
+					<tr>
+						<th class="vocab">Word or phrase</th>
+						<th class="vocab">Definition</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for word in items.vocab %}
+					<tr>
+						<td>{{ word[0] }}</td>
+						<td>{{ word[1] }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% endif %}
+			{% if items.mistakes %}
+			<table>
+				<thead>
+					<tr>
+						<th class="mistakesheader" colspan=2>Mistakes</th>
+					</tr>
+					<tr>
+						<th class="mistakes">Mistake</th>
+						<th class="mistakes">Correction</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for mistake in items.mistakes %}
+					<tr>
+						<td>{{ mistake[0] }}</td>
+						<td>{{ mistake[1] }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% endif %}
+			{% if items.pronunciation %}
+			<table>
+				<thead>
+					<tr>
+						<th class="pronunciationheader" colspan=2>Pronunciation</th>
+					</tr>
+					<tr>
+						<th class="pronunciation">Mispronunciation</th>
+						<th class="pronunciation">Correct pronunciation</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for pron in items.pronunciation %}
+					<tr>
+						<td>{{ pron[0] }}</td>
+						<td>{{ pron[1] }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% endif %}
+			{% if items.grammar %}
+			<table>
+				<thead>
+					<tr>
+						<th class="grammarheader" colspan=2>Grammar</th>
+					</tr>
+					<tr>
+						<th class="grammar">Grammatical issue</th>
+						<th class="grammar">Explanation</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in items.grammar %}
+					<tr>
+						<td>{{ item[0] }}</td>
+						<td>{{ item[1] }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% endif %}
+			{% if items.homework %}
+			<table>
+				<thead>
+					<tr>
+						<th class="homeworkheader" colspan=2>Homework</th>
+					</tr>
+					<tr>
+						<th class="homework">Assignment</th>
+						<th class="homework">Specification</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in items.homework %}
+					<tr>
+						<td >{{ item[0] }}</td>
+						<td class="url">{{ item[1] }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% endif %}
+		</div>
+		{% else %}
+		<h4>Due to technical issues, this analysis is corrupted. Please contact your teacher.</h4>
+		{% endif %}
+	</body>
+</html>

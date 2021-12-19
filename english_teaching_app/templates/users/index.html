@@ -1,0 +1,11 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+{% if session['email'] == config.ADMIN %} 
+<input type="text" class="form-control" id="lessonSearchBar" onkeyup="searchLessons()" placeholder="search emails">
+{% endif %}
+<div class="container">
+  <a class="btn btn-secondary" href="{{ url_for(users.index) }}"></a>
+</div>
+{% endblock %}
