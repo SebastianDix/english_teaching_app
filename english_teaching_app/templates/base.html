@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Sebastian Dix English</title>
+		<!-- CSS ONLY --> 
+		<!DOCTYPE html>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+		<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"/>
+	</head>
+	<body>
+		<div class="content container mt-2">
+			<nav class="row navbar navbar-expand-lg navbar-light bg-light mb-3">
+				<a class="navbar-brand" href="/">Sebastian Dix</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div id="navbarNavAltMarkup" class="collapse navbar-collapse">
+					<div class="navbar-nav">
+						{% if not session['email'] %}
+						<a class="nav-item nav-link" href="{{ url_for('users.register_user') }}">Register</a>
+						<a class="nav-item nav-link" href="{{ url_for('users.login_user') }}">Log in</a>
+						{% endif %}
+						{% if session['email'] %}
+						<a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Log out</a>
+						<a class="nav-item nav-link" href="{{ url_for('lessons.index') }}">Lessons</a>
+						<a class="nav-item nav-link" href="{{ url_for('lessons.view_data') }}">Data</a>
+						{% endif %}
+					</div>
+				</div>
+			</nav>
+			{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+			{% for category, message in messages %}
+			<div class="position-absolute alert alert-{{ category }} alert-dismissible fade show flaskmessage" role="alert">
+				<span>{{ message }}</span>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					                <span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			{% endfor %}
+			{% endif %}
+			{% endwith %}
+
+			<!-- <div class="mt-3"> -->
+			{% block content %}
+
+			{% endblock %}
+			<!-- </div> -->
+		</div>
+		<!-- JS, Popper.js, and jQuery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+		<!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script> -->
+		<!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.js"></script> -->
+		<!-- <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.js"></script> -->
+
+
+		<script type=text/javascript>
+			$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+		</script>
+		<script type="text/javascript" charset="utf8" src="{{ url_for('static', filename='localforage.min.js') }}"></script>
+		<script type="text/javascript" charset="utf8" src="{{ url_for('static', filename='main.js') }}"></script>
+	</body>
+</html>

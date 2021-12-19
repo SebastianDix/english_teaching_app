@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+	<h1 class="display-4">Learn English with Sebastian</h1>
+
+	<hr class="my-4" />
+	<a class="btn btn-primary btn-lg" href={{ url_for('users.register_user') }}>Get started</a>
+	<a class="btn btn-success btn-lg" href={{ url_for('users.login_user') }}>Log in</a>
+</div>
+{% endblock %}

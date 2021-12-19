@@ -1,0 +1,1 @@
+static/service-worker.js

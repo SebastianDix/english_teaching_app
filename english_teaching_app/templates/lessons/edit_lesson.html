@@ -1,0 +1,55 @@
+
+
+
+{% extends "base.html" %}
+
+{% block content %}
+<header><h1>Edit lesson</h1></header>
+<section class="edit-lesson-form">
+
+  <form method="post">
+    <!-- Student dropdown -->
+    <select class="custom-select mb-3" id="student" name="student">
+      {% if students %}
+      {% for student in students %}
+      {% if student._id == lesson.student._id %}
+      <option selected>{{ lesson.student.email }}</option>
+      {% else %} 
+      <option>{{ student.email }}</option>
+      {% endif %}
+      {% endfor %}
+      {% else %}
+      <option selected>No students found!</option>
+      {% endif %}
+    </select>
+
+    <!-- Date -->
+    <div class="form-row">
+      <div class="col">
+        <label for="date">Date</label>
+        <input type="text" class="form-control" id="date" name="date" placeholder="{{ date }}" value="{{ date }}" required pattern="\d{4}-\d{2}-\d{2}" >
+        <span class="validity"></span>
+      </div>
+
+      <!-- Time -->
+      <div class="col">
+        <label for="text">Time</label>
+        <input type="time" class="form-control" id="time" name="time" placeholder="{{ time }}" value="{{ time }}">
+      </div>
+      <div class="col">
+        <label for="text">Duration</label>
+        <input class="form-control" id="duration" name="duration" value="{{ lesson.duration }}">
+      </div>
+    </div>
+
+    <!-- Topics -->
+    <div class="form-group">
+      <label for="topics">Topics</label>
+      <input type="text" class="form-control" id="topics" name="topics" placeholder="{{ lesson.topics }}" value="{{ lesson.topics }}">
+    </div>
+
+    <button class="btn btn-secondary" type="submit">Edit</button>
+  </form>
+
+</section>
+{% endblock %}

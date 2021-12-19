@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header><h1>Edit feedback</h1></header>
+<section class="edit-feedback-form"> 
+  <form method="post">
+
+    <!-- Topics -->
+    <div class="form-group">
+      <label for="topics">Topics</label>
+      <input type="text" class="form-control" id="topics" name="topics" placeholder="Cars + Present perfect" value="{{lesson.topics }}">
+    </div>
+
+    <!-- Feedback -->
+    <div class="form-group">
+      <label for="write_all">Write the whole analysis in one text box</label>
+      <textarea class="form-control" id="write_all" name="write_all" placeholder="{{ lesson.feedback }}" rows=20 data-lessonid="{{ lesson._id }}" >{{ feedback }}</textarea>
+    </div>
+    {% include 'ajax_send_analysis.html' %}
+    <a class="btn btn-primary" id="edit_lesson" onclick="editLesson()">Edit lesson</a>
+    <a class="btn btn-success" id="send_analysis" onclick="sendAnalysis()">Send analysis</a>
+    <a class="btn btn-info" id="sync_analysis" onclick="requestSync()">Sync analysis</a>
+  </form>
+</section>
+<section>
+  {% include 'web.html' %}
+</section>
+{% endblock %}

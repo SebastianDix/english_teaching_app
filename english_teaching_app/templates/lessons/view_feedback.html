@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="analysis d-flex flex-column">
+
+	{% if lesson.topics %}
+	<div class="alert alert-info lesson-topic">This lesson's topics included: <em>{{ lesson.topics }}</em></div>
+
+{% endif %}
+{% for category in items %}
+{% if items[category] %}
+<table class="table table-striped table-sm text-center" data-category="{{ category }}">
+		<thead>
+			<tr>
+				<th scope="col" colspan=2>{{ headings[category][0] }}</th>
+			</tr>
+			<tr>
+				<th scope="col">{{ headings[category][1] }}</th>
+				<th scope="col">{{ headings[category][2] }}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for item in items[category] %}
+			<tr>
+				<td>{{ item[0] }}</td>
+				<td>{{ item[1] }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endif %}
+{% endfor %}
+</div>
+{% endblock %}

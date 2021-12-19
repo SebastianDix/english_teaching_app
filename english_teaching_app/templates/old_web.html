@@ -1,0 +1,80 @@
+			<table class="table table-striped table-sm text-center">
+				<thead>
+					<tr>
+						<th class="mistakesheader" colspan=2>Mistakes</th>
+					</tr>
+					<tr>
+						<th class="mistakes">Mistake</th>
+						<th class="mistakes">Correction</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for mistake in items.mistakes %}
+					<tr>
+						<td>{{ mistake[0] }}</td>
+						<td>{{ mistake[1] }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<table class="table table-striped table-sm text-center">
+				<thead>
+					<tr>
+						<th class="pronunciationheader" colspan=2>Pronunciation</th>
+					</tr>
+					<tr>
+						<th class="pronunciation">Mispronunciation</th>
+						<th class="pronunciation">Correct pronunciation</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for pron in items.pronunciation %}
+					<tr>
+						<td>{{ pron[0] }}</td>
+						<td>{{ pron[1] }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<table class="table table-striped table-sm text-center">
+				<thead>
+					<tr>
+						<th class="grammarheader" colspan=2>Grammar</th>
+					</tr>
+					<tr>
+						<th class="grammar">Grammatical issue</th>
+						<th class="grammar">Explanation</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in items.grammar %}
+					<tr>
+						<td>{{ item[0] }}</td>
+						<td>{{ item[1] }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<table class="table table-striped table-sm text-center">
+				<thead>
+					<tr>
+						<th class="homeworkheader" colspan=2>Homework</th>
+					</tr>
+					<tr>
+						<th class="homework">Assignment</th>
+						<th class="homework">Specification</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in items.homework %}
+					<tr>
+						<td >{{ item[0] }}</td>
+						<td class="url">{{ item[1] }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		{% else %}
+		<h4>Due to technical issues, this analysis is corrupted. Please contact your teacher.</h4>
+		{% endif %}

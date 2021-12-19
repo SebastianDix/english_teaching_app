@@ -1,0 +1,13 @@
+<script type="application/javascript">
+	function sendAnalysis() {
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				document.getElementById("send_analysis").innerHTML = "Analysis sent!";
+				document.getElementById("send_analysis").classList.toggle("disabled");
+			}
+		};
+		xhttp.open("GET","{{ url_for('lessons.send_feedback',lesson_id=lesson._id) }}",true);
+		xhttp.send();
+	}
+	</script>

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header>
+  <h1>Lessons</h1>
+</header>
+<section>
+  <div class="list-group mb-3">
+    {% for lesson in lessons %}
+  
+    <div class="list-group-item">
+      <h4 class="list-group-item-heading">{{ lesson.student.firstname }} {{ lesson.student.lastname }}</h4>
+      <p>
+        This lesson happened {{ lesson.get_how_long_ago() }} ago<br>
+        On {{ lesson.datetime.strftime("%A, %d %B, %Y") }}<br>
+        at {{ lesson.datetime.strftime("%I:%M %p") }}
+        {% if lesson.topics %}
+        <br>
+        and the topics were: {{ lesson.topics }}
+        {% endif %}
+      </p>
+      <a class="btn btn-outline-secondary" role="button" href="{{ url_for('lessons.view_feedback',lesson_id=lesson._id) }}">
+        View feedback
+      </a>
+      {% if session['email'] == config.ADMIN %}
+
+      <!-- lesson -->
+      <a class="btn btn-outline-secondary" role="button" href="{{ url_for('lessons.edit_lesson',lesson_id=lesson._id) }}">
+        Edit
+      </a>#
+      <a class="btn btn-outline-secondary" role="button" href="{{ url_for('lessons.delete_lesson',lesson_id=lesson._id) }}">
+        Delete
+      </a>
+      <a class="btn btn-outline-secondary" role="button" href="{{ url_for('lessons.edit_feedback',lesson_id=lesson._id) }}">
+        Edit feedback
+      </a>
+      {% endif %}
+    </div> 
+    {% endfor %}
+  </div>
+      {% if session['email'] == config.ADMIN %}
+  <a class="btn btn-primary" role="button" href="{{ url_for('lessons.new_lesson') }}">
+    New lesson
+  </a>
+  {% endif %}
+</section>
+{% endblock %}

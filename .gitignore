@@ -1,4 +1,12 @@
 # Byte-compiled / optimized / DLL files
+<<<<<<< HEAD
+=======
+*.swp
+log/
+log/*
+log/uwsgi.log
+uwsgi.log
+>>>>>>> master
 __pycache__/
 *.py[cod]
 *$py.class
@@ -127,3 +135,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+node_modules
