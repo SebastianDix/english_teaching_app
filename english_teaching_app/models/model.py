@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from abc import ABCMeta, abstractmethod
 from typing import List, TypeVar, Type, Dict,Union
-from common.database import Database
+from english_teaching_app.common.database import Database
 import uuid
 
 T = TypeVar('T',bound="Model")
