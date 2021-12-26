@@ -6,7 +6,8 @@ COPY package*.json ./
 
 COPY . .
 
-RUN pip install
+RUN pip install poetry
+RUN poetry install 
 
 ENV PORT=5000
 
